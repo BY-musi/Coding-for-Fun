@@ -1,7 +1,26 @@
-import pygame
-import time
-
 from sprites import *
+
+
+class PlaneGame(object):
+    """主游戏类"""
+
+    def __init__(self):
+        print("游戏正在初始化...")
+        # 创建游戏主窗口
+        self.screen = pygame.display.set_mode(SCREEN_RECT.size)
+        # 创建游戏时钟
+        self.clock = pygame.time.Clock()
+        # 调用私有方法，创建精灵和精灵组
+        self.__create_sprites()
+
+    def __create_sprites(self):
+        """用于创建精灵和精灵组"""
+        pass
+
+    def start_game(self):
+        """启动游戏"""
+        # 游戏主循环
+
 
 pygame.init()  # 导入并初始化所有Pygame模块
 

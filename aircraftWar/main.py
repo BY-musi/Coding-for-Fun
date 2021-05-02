@@ -20,8 +20,12 @@ class PlaneGame(object):
         # 创建背景精灵
         background1 = BackGround()
         background2 = BackGround(is_alt=True)
+        # 创建英雄飞机精灵、
+        self.hero_plane = Hero()
         # 创建背景精灵组
         self.background_group = pygame.sprite.Group(background1, background2)
+        # 创建英雄飞机精灵组
+        self.hero_group = pygame.sprite.Group(self.hero_plane)
         # 创建敌机精灵组，用于管理敌机精灵
         self.enemy_group = pygame.sprite.Group()
 
@@ -42,6 +46,8 @@ class PlaneGame(object):
         """位置更新"""
         self.background_group.update()
         self.background_group.draw(self.screen)
+        self.hero_group.update()
+        self.hero_group.draw(self.screen)
         self.enemy_group.update()
         self.enemy_group.draw(self.screen)
 

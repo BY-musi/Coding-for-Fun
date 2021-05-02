@@ -42,6 +42,16 @@ class PlaneGame(object):
                 # 创建敌机精灵同时加入精灵组
                 self.enemy_group.add(Enemy())
 
+        # 按键判断
+        keys_pressed = pygame.key.get_pressed()
+        if keys_pressed[pygame.K_RIGHT]:
+            self.hero_plane.speed = 1
+        elif keys_pressed[pygame.K_LEFT]:
+            self.hero_plane.speed = -1
+        else:
+            # 当没有按下左右方向键时，速度应该设置为0
+            self.hero_plane.speed = 0
+
     def __update_sprites(self):
         """位置更新"""
         self.background_group.update()

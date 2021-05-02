@@ -14,6 +14,8 @@ class PlaneGame(object):
         self.__create_sprites()
         # 设置定时器时间----每隔1秒创建一架敌机
         pygame.time.set_timer(CREATE_ENEMY_EVENT, 1000)
+        # 设置定时器事件----每隔0.5秒发射一次子弹
+        pygame.time.set_timer(HERO_FIRE_EVENT, 500)
 
     def __create_sprites(self):
         """用于创建精灵和精灵组"""
@@ -31,7 +33,14 @@ class PlaneGame(object):
 
     def __check_collide(self):
         """碰撞检测"""
-        pass
+        # 子弹与敌机之间的碰撞检测
+        pygame.sprite.groupcollide(self.enemy_group, self.hero_plane.bullet_group, True, True)
+        # 英雄飞机和敌机之间的碰撞检测
+        enemy_list = pygame.sprite.spritecollide(self.hero_plane, self.enemy_group, True)
+        # 如果发生了碰撞，游戏结束
+        if len(enemy_list) > 0:
+            self.hero_plane.kill()
+            self.__game_over()
 
     def __event_handler(self):
         """事件监听"""
@@ -41,6 +50,8 @@ class PlaneGame(object):
             elif event.type == CREATE_ENEMY_EVENT:
                 # 创建敌机精灵同时加入精灵组
                 self.enemy_group.add(Enemy())
+            elif event.type == HERO_FIRE_EVENT:
+                self.hero_plane.fire()
 
         # 按键判断
         keys_pressed = pygame.key.get_pressed()
@@ -60,6 +71,9 @@ class PlaneGame(object):
         self.hero_group.draw(self.screen)
         self.enemy_group.update()
         self.enemy_group.draw(self.screen)
+
+        self.hero_plane.bullet_group.update()
+        self.hero_plane.bullet_group.draw(self.screen)
 
     def start_game(self):
         """启动游戏"""

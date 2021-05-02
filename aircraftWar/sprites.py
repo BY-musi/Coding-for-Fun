@@ -7,6 +7,9 @@ SCREEN_RECT = pygame.Rect(0, 0, 480, 700)
 # 创建敌机的定时器常量
 CREATE_ENEMY_EVENT = pygame.USEREVENT
 
+# 创建英雄飞机发射子弹的事件
+HERO_FIRE_EVENT = pygame.USEREVENT + 1
+
 class GameSprite(pygame.sprite.Sprite):
     def __init__(self, image_name, speed=1):
         """调用父类的初始化方法"""
@@ -77,6 +80,8 @@ class Hero(GameSprite):
         # 位于游戏主窗口的中央
         self.rect.centerx = SCREEN_RECT.centerx
         self.rect.bottom = SCREEN_RECT.height - 10
+        # 创建子弹精灵组
+        self.bullet_group = pygame.sprite.Group()
 
     def update(self):
         # 英雄飞机在水平方向移动且不能移动出边界
@@ -89,5 +94,23 @@ class Hero(GameSprite):
 
     def fire(self):
         """英雄飞机发射子弹"""
-        pass
+        for i in (0, 1, 2):
+            # 创建子弹精灵
+            bullet = Bullet()
+            # 设定子弹精灵的位置，应该在英雄飞机的正上方发射
+            bullet.rect.y = self.rect.y - 2 * i * bullet.rect.height
+            bullet.rect.centerx = self.rect.centerx
+            # 子弹精灵加入精灵组
+            self.bullet_group.add(bullet)
 
+class Bullet(GameSprite):
+    """子弹类，继承自GameSprite"""
+    def __init__(self):
+        super().__init__("./images/bullet1.png", speed=-2)
+
+    def update(self):
+        # 调用父类方法----向下移动
+        super().update()
+        # 判断子弹是否飞出屏幕，是则释放
+        if self.rect.bottom <= 0:
+            self.kill()

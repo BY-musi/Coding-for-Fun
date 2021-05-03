@@ -1,4 +1,8 @@
 from sprites import *
+from enemy import *
+from background import *
+from heroplane import *
+from bullets import *
 
 
 class PlaneGame(object):
@@ -8,6 +12,9 @@ class PlaneGame(object):
         print("游戏正在初始化...")
         # 创建游戏主窗口
         self.screen = pygame.display.set_mode(SCREEN_RECT.size)
+        pygame.display.set_caption("飞机大战")
+        # 切换图片
+        self.switch_image = True
         # 创建游戏时钟
         self.clock = pygame.time.Clock()
         # 调用私有方法，创建精灵和精灵组
@@ -56,15 +63,15 @@ class PlaneGame(object):
         # 按键判断
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_RIGHT]:
-            self.hero_plane.speed = 1
+            self.hero_plane.speed = 2
         elif keys_pressed[pygame.K_LEFT]:
-            self.hero_plane.speed = -1
+            self.hero_plane.speed = -2
         else:
             # 当没有按下左右方向键时，速度应该设置为0
             self.hero_plane.speed = 0
 
     def __update_sprites(self):
-        """位置更新"""
+        """画面更新"""
         self.background_group.update()
         self.background_group.draw(self.screen)
         self.hero_group.update()
@@ -85,7 +92,7 @@ class PlaneGame(object):
             self.__event_handler()
             # 碰撞检测
             self.__check_collide()
-            # 位置更新
+            # 画面更新
             self.__update_sprites()
             # 游戏主窗口刷新显示
             pygame.display.update()

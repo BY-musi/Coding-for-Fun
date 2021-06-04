@@ -5,10 +5,8 @@
 set history=300
 
 " Sets line number
-set nu " show row number
+set number " show row number
 set relativenumber " relative row number
-
-set wrap
 
 " cursor
 set cursorline " highlight line cursor
@@ -19,8 +17,9 @@ set cursorline " highlight line cursor
 "let &t_SR = "\<ESC>50;CursorShape=2\x7"
 "let &t_EI = "\<ESC>50;CursorShape=0\x7"
 
-" 允许使用鼠标
-set mouse=a
+set mouse=a " 允许使用鼠标
+set wrap
+set shiftround
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -30,27 +29,46 @@ let mapleader=","
 nnoremap J 6j
 nnoremap K 5k
 
+" tab and intent
 set smarttab " Be smart when using tabs
 set expandtab " Convent Tab to space
-
-" 1 tab == 4 spaces
-set shiftwidth=4
+set shiftwidth=4 " 1 tab == 4 spaces
 set tabstop=4
-
 set ai " Auto indent
 set si " Smart indent
 
 " auto complete
-"inoremap {<CR> {<CR>}<ESC>O
-"inoremap ( ()<ESC>i
-"inoremap { {}<ESC>i
-"inoremap [ []<ESC>i
-"inoremap ' ''<ESC>i
+inoremap {<CR> {<CR>}<ESC>O
+inoremap ( ()<ESC>i
+inoremap { {}<ESC>i
+inoremap [ []<ESC>i
+inoremap ' ''<ESC>i
 "inoremap <leader><leader> <ESC>A
+inoremap <C-l> <right>
 
 " enable yank and copy from vim to system, host
 vnoremap <leader>y "+y
 nmap <leader>p "+p
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ==> Colors, Themes, and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax on
+
+set background=dark
+
+" encoding and language
+set encoding=utf-8
+"language en_US.UTF-8
+set fileencodings=utf-8,gbk,gb18030,ucs-bom,gb2312,big5
+set fileencoding=utf-8
+language message zh_CN.UTF-8
+set langmenu=zh_CN.UTF-8
+set helplang=cn
+
+"colorscheme snazzy
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => run and debug
@@ -114,6 +132,15 @@ let g:rainbow_active = 1
 """""""" airline """""""""""
 let g:airline_theme='bubblegum'
 
+"""""""" neovide """""""""""
+let g:neovide_refresh_rate=140
+let g:neovide_no_idle=v:true
+let g:neovide_fullscreen=v:true
+let g:neovide_cursor_antialiasing=v:true
+let g:neovide_cursor_animation_length=0.13
+let g:neovide_cursor_trail_length=0.5
+let g:neovide_cursor_vfx_mode="railgun"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
@@ -143,12 +170,14 @@ Plugin 'plasticboy/vim-markdown'
 " Rainbow Parentheses
 Plugin 'luochen1990/rainbow'
 
+" tweaks in vim show
 " vim-airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 " Themes
-Plugin 'connorholyday/vim-snazzy'
+Plugin 'connorholyday/vim-snazzy'               
+Plugin 'Kethku/neovide'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -168,19 +197,3 @@ call vundle#end()
 filetype plugin indent on
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ==> Colors, Themes, and Fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax on
-
-set background=dark
-
-" encoding and language
-set encoding=utf8
-set fencs=utf-8,gbk,gb18030,ucs-bom,gb2312
-
-set langmenu=zh_CN.UTF-8
-set helplang=cn
-
-"colorscheme snazzy

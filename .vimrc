@@ -5,11 +5,11 @@
 set history=300
 
 " Sets line number
-set number " show row number
-set relativenumber " relative row number
+set number                                  " show line numbers
+set relativenumber                          " relative row number
 
 " cursor
-set cursorline " highlight line cursor
+set cursorline                              " highlight line cursor
 "set cursorcolumn " highlight column cursor
 
 " different cursor shape in different mode
@@ -17,9 +17,16 @@ set cursorline " highlight line cursor
 "let &t_SR = "\<ESC>50;CursorShape=2\x7"
 "let &t_EI = "\<ESC>50;CursorShape=0\x7"
 
-set mouse=a " 允许使用鼠标
+set mouse=a                                 " 允许使用鼠标
 set wrap
 set shiftround
+set clipboard=unnamed
+set nocompatible                            " complete vim mode, not compatible vi
+set scrolloff=8
+
+" :W => sudo saves the file
+" (useful for handling the permission-denied error)
+command! W exec 'w !sudo tee % > /dev/null' <bar> edit!
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -30,24 +37,24 @@ nnoremap J 6j
 nnoremap K 5k
 
 " tab and intent
-set smarttab " Be smart when using tabs
-set expandtab " Convent Tab to space
-set shiftwidth=4 " 1 tab == 4 spaces
+set smarttab                                " Be smart when using tabs
+set expandtab                               " Convent Tab to space
+set shiftwidth=4                            " 1 tab == 4 spaces
 set tabstop=4
-set ai " Auto indent
-set si " Smart indent
+set ai                                      " Auto indent
+set si                                      " Smart indent
 
 " auto complete
 inoremap {<CR> {<CR>}<ESC>O
-inoremap ( ()<ESC>i
-inoremap { {}<ESC>i
-inoremap [ []<ESC>i
-inoremap ' ''<ESC>i
+"inoremap ( ()<ESC>i
+"inoremap { {}<ESC>i
+"inoremap [ []<ESC>i
+"inoremap ' ''<ESC>i
 "inoremap <leader><leader> <ESC>A
-inoremap <C-l> <right>
+"inoremap <C-l> <right>
 
 " enable yank and copy from vim to system, host
-vnoremap <leader>y "+y
+vnoremap <leader>y "+yy
 nmap <leader>p "+p
 
 
@@ -167,16 +174,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-" Rainbow Parentheses
-Plugin 'luochen1990/rainbow'
+Plugin 'ycm-core/YouCompleteMe'
+Plugin 'luochen1990/rainbow'                    " Rainbow Parentheses
 
 " tweaks in vim show
 " vim-airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
-" Themes
-Plugin 'connorholyday/vim-snazzy'               
+Plugin 'connorholyday/vim-snazzy'               " Themes
 Plugin 'Kethku/neovide'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -195,5 +200,3 @@ Plugin 'Kethku/neovide'
 " All of your Plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on
-
-
